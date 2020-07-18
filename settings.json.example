@@ -1,0 +1,17 @@
+{
+	"lastfm_api_key": "YOUR_KEY_HERE (generate one here: https://www.last.fm/api/account/create)",
+	"lastfm_username": "YOUR_USERNAME_HERE",
+	"lastfm_loopcount": "5 (amount of song loop reqiuired before a song is posted with the #np hashtag, max. 200 due to lastfm API limitations; KEEP THIS IN QUOTES!)",
+
+	"mastodon_enable": "true",
+	"mastodon_api_domain": "https://instance.domain (replace this with the domain of the instance you made the app on)",
+	"mastodon_client_key": "YOUR_KEY_HERE (to get the next 3: go to Settings > Development > New Application on your Mastodon instance; only choose the write:statuses scope, we don't need the others)",
+	"mastodon_client_secret": "YOUR_KEY_HERE",
+	"mastodon_auth_token": "YOUR_KEY_HERE",
+	"mastodon_post_visibility": "unlisted",
+
+	"mastodon_use_app": "false",
+
+	"run_once": "false",
+	"run_interval": "600 (in seconds; will run every x seconds (600 seconds - 10 minutes))"
+}
