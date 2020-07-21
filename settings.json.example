@@ -2,6 +2,7 @@
 	"lastfm_api_key": "YOUR_KEY_HERE (generate one here: https://www.last.fm/api/account/create)",
 	"lastfm_username": "YOUR_USERNAME_HERE",
 	"lastfm_loopcount": "5 (amount of song loop reqiuired before a song is posted with the #np hashtag, max. 200 due to lastfm API limitations; KEEP THIS IN QUOTES!)",
+	"lastfm_use_scrobbling_now": "false (whether to use the song that last.fm deems 'scrobbling now')",
 
 	"mastodon_enable": "true",
 	"mastodon_api_domain": "https://instance.domain (replace this with the domain of the instance you made the app on)",
@@ -13,5 +14,6 @@
 	"mastodon_use_app": "false",
 
 	"run_once": "false",
-	"run_interval": "600 (in seconds; will run every x seconds (600 seconds - 10 minutes))"
+	"run_interval": "600 (in seconds; will run every x seconds (600 seconds - 10 minutes))",
+	"run_interval_after_posting": "0 (in seconds; how long to wait after a successful post)"
 }

@@ -47,12 +47,20 @@ while True:
 		#  - ...and clear them once the loop begins again.
 		artists_in_query = list()
 		song_names_in_query = list()
+		song_is_now_playing_on_lastfm = False
 		# Looping over every track found in the query:
 		for track in data['recenttracks']['track']:
 			print("Track:")
 			for key, value in track.items():
 				if key == '@attr' and value['nowplaying'] == 'true':
-					print("UPSTREAM WORKAROUND: last.fm's API adds the track they deem 'now playing' to the API request. Ignoring.")
+					if settings.get('lastfm_use_scrobbling_now') == 'false':
+						print("  ! UPSTREAM WORKAROUND: last.fm's API adds the track they deem 'now playing' to the API request. Ignoring.")
+					else:
+						print("  - Song is now playing according to last.fm's 'Scrobbling now' feature.")
+						artist = str(track['artist']['#text'])
+						song_name = str(track['name'])
+						url = str(track['url'])
+						song_is_now_playing_on_lastfm = True
 					break
 				elif key == 'artist':
 					print('  - Artist: ' + value['#text'])
@@ -65,15 +73,22 @@ while True:
 				elif key == 'url':
 					print('  - Link: ' + value)
 					url = str(value)
+			if settings.get('lastfm_use_scrobbling_now') == 'true' and song_is_now_playing_on_lastfm:
+				break
 	except:
 		print("Something went wrong during the API fetch. Check if the lastfm settings are set correctly.")
 	finally:
 		# If all the artists and song names in the query match, and they're not the same
 		# as the previous ones, set the new previous artist/song name and post the actual #np post.
-		if len(set(artists_in_query)) <= 1 and len(set(song_names_in_query)) <= 1 and artist != previous_artist and song_name != previous_song_name:
-			previous_artist = artist
-			previous_song_name = song_name
-			post("#np: %s - %s\n%s" % (artist, song_name, url))
+		if settings.get('lastfm_use_scrobbling_now') and not song_is_now_playing_on_lastfm:
+			print('No currently scrobbled song found.')
+		else:
+			if len(set(artists_in_query)) <= 1 and len(set(song_names_in_query)) <= 1 and artist != previous_artist and song_name != previous_song_name:
+				previous_artist = artist
+				previous_song_name = song_name
+				post("#np: %s - %s\n%s" % (artist, song_name, url))
+				if int(settings.get('run_interval_after_posting')) > 0:
+					time.sleep(int(settings.get('run_interval_after_posting')))
 	if settings.get('run_once') == 'true':
 		sys.exit()
 	else:

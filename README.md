@@ -17,3 +17,5 @@ Note: settings.json must be in the same directory as the one you're running the 
 - custom settings file location + argument parsing
 - web interface
 - better crash handlers
+- support for Twitter
+- support for albums
